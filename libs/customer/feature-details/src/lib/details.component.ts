@@ -3,12 +3,13 @@ import {
   Component,
   inject,
   input,
+  ErrorHandler,
 } from '@angular/core';
 
 import { CustomerFacadeService } from '@ng-journal/customer/data-access';
 import { CardComponent, HeaderComponent } from '@ng-journal/shared/ui';
 import { primeNgModules } from '@ng-journal/shared/utils';
-import { switchMap } from 'rxjs';
+import { switchMap, catchError, EMPTY } from 'rxjs';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -61,10 +62,18 @@ import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 export class DetailsComponent {
   readonly #customerFacade = inject(CustomerFacadeService);
   readonly customer = this.#customerFacade.selectedCustomer;
+  readonly #errorHandler = inject(ErrorHandler);
   readonly id = input.required<string>();
   readonly #loadOnIdChange = toObservable(this.id)
     .pipe(
-      switchMap((id) => this.#customerFacade.loadCustomer(id)),
+      switchMap((id) =>
+        this.#customerFacade.loadCustomer(id).pipe(
+          catchError((error) => {
+            this.#errorHandler.handleError(error);
+            return EMPTY;
+          })
+        )
+      ),
       takeUntilDestroyed()
     )
     .subscribe();

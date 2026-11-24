@@ -3,10 +3,11 @@ import {
   Component,
   inject,
   input,
+  ErrorHandler,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComplaintFacadeService } from '@ng-journal/complaint/data-access';
-import { switchMap } from 'rxjs';
+import { switchMap, catchError, EMPTY } from 'rxjs';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import {
   CardComponent,
@@ -64,10 +65,18 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 export class DetailsComponent {
   readonly #complaintFacade = inject(ComplaintFacadeService);
   readonly complaint = this.#complaintFacade.selectedComplaint;
+  readonly #errorHandler = inject(ErrorHandler);
   readonly id = input.required<string>();
   readonly #loadOnIdChange = toObservable(this.id)
     .pipe(
-      switchMap((id) => this.#complaintFacade.loadComplaint(id)),
+      switchMap((id) =>
+        this.#complaintFacade.loadComplaint(id).pipe(
+          catchError((error) => {
+            this.#errorHandler.handleError(error);
+            return EMPTY;
+          })
+        )
+      ),
       takeUntilDestroyed()
     )
     .subscribe();

@@ -3,6 +3,7 @@ import {
   Component,
   inject,
   input,
+  ErrorHandler,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContractFacadeService } from '@ng-journal/contract/data-access';
@@ -16,7 +17,7 @@ import {
   ContractStatusChipComponent,
   ContractStatusChipStylePipe,
 } from '@ng-journal/contract/ui';
-import { switchMap } from 'rxjs';
+import { switchMap, catchError, EMPTY } from 'rxjs';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
@@ -88,10 +89,18 @@ export class DetailsComponent {
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
   readonly contract = this.#contractFacade.selectedContract;
+  readonly #errorHandler = inject(ErrorHandler);
   readonly id = input.required<string>();
   readonly #loadOnIdChange = toObservable(this.id)
     .pipe(
-      switchMap((id) => this.#contractFacade.loadContract(id)),
+      switchMap((id) =>
+        this.#contractFacade.loadContract(id).pipe(
+          catchError((error) => {
+            this.#errorHandler.handleError(error);
+            return EMPTY;
+          })
+        )
+      ),
       takeUntilDestroyed()
     )
     .subscribe();

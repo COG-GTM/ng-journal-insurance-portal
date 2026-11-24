@@ -3,6 +3,7 @@ import {
   Component,
   inject,
   input,
+  ErrorHandler,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClaimFacadeService } from '@ng-journal/claim/data-access';
@@ -12,7 +13,7 @@ import {
   HyperlinkComponent,
 } from '@ng-journal/shared/ui';
 import { primeNgModules } from '@ng-journal/shared/utils';
-import { switchMap } from 'rxjs';
+import { switchMap, catchError, EMPTY } from 'rxjs';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
@@ -73,10 +74,18 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 export class DetailsComponent {
   readonly #claimFacade = inject(ClaimFacadeService);
   readonly claim = this.#claimFacade.selectedClaim;
+  readonly #errorHandler = inject(ErrorHandler);
   readonly id = input.required<string>();
   readonly #loadOnIdChange = toObservable(this.id)
     .pipe(
-      switchMap((id) => this.#claimFacade.loadClaim(id)),
+      switchMap((id) =>
+        this.#claimFacade.loadClaim(id).pipe(
+          catchError((error) => {
+            this.#errorHandler.handleError(error);
+            return EMPTY;
+          })
+        )
+      ),
       takeUntilDestroyed()
     )
     .subscribe();
