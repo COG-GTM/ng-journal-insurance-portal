@@ -4,3 +4,27 @@ body {
   padding: 0px;
   font-family: var(--font-family);
 }
+
+/* Table and chip metrics of the PrimeNG 16 bootstrap4-light-blue theme, which styled mode no longer ships. */
+.p-datatable .p-datatable-thead > tr > th {
+  padding: 1rem;
+  border-width: 1px 0 2px 0;
+  border-color: #dee2e6;
+  background: #ffffff;
+  font-weight: 600;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 1rem;
+  border-width: 1px 0 0 0;
+  border-color: #dee2e6;
+}
+
+.p-chip.p-component {
+  padding: 0 0.75rem;
+}
+
+.p-chip .p-chip-label {
+  margin: 0.25rem 0;
+  line-height: 1.5;
+}
