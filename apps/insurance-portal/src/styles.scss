@@ -30,8 +30,8 @@ body {
 }
 
 /* Overlay metrics of the PrimeNG 16 bootstrap4-light-blue theme for the datepicker and select panels. */
-.p-datepicker-panel,
-.p-select-overlay {
+.p-datepicker-panel.p-component,
+.p-select-overlay.p-component {
   border-color: rgba(0, 0, 0, 0.15);
   box-shadow: none;
 }
@@ -88,6 +88,12 @@ body {
 
 .p-select-overlay .p-select-option {
   padding: 0.5rem 1.5rem;
+}
+
+.p-select-overlay .p-select-option.p-select-option-selected,
+.p-select-overlay .p-select-option.p-select-option-selected.p-focus {
+  background: #007bff;
+  color: #ffffff;
 }
 
 /* Toast metrics and solid severity colours of the PrimeNG 16 bootstrap4-light-blue theme. */
