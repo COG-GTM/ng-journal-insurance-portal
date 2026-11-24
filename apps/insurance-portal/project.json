@@ -7,12 +7,13 @@
   "tags": ["type:app"],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath.base}"],
       "options": {
-        "outputPath": "dist/apps/insurance-portal",
+        "outputPath": {
+          "base": "dist/apps/insurance-portal"
+        },
         "index": "apps/insurance-portal/src/index.html",
-        "main": "apps/insurance-portal/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/insurance-portal/tsconfig.app.json",
         "assets": [
@@ -24,7 +25,8 @@
           "apps/insurance-portal/src/legacy-theme-variables.css",
           "node_modules/primeflex/primeflex.css"
         ],
-        "scripts": []
+        "scripts": [],
+        "browser": "apps/insurance-portal/src/main.ts"
       },
       "configurations": {
         "production": {
@@ -43,9 +45,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -54,7 +54,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "insurance-portal:build:production"
@@ -67,7 +67,7 @@
       "continuous": true
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "insurance-portal:build"
       }
