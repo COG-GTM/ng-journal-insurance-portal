@@ -17,7 +17,6 @@ import { HeaderComponent } from '@ng-journal/shared/ui';
 
 @Component({
   selector: 'ng-journal-list',
-  standalone: true,
   imports: [
     CommonModule,
     RouterLink,

@@ -1,12 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "ng-journal",
   "defaultProject": "insurance-portal",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
         "--cacheDirectory": "Z:\\nx-cache"
       }
     }
@@ -23,20 +20,31 @@
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "inputs": ["production", "^production"],
+      "cache": true
     },
-    "test": {
-      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+    "@nx/jest:jest": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
+      "cache": true,
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
     },
-    "e2e": {
-      "inputs": ["default", "^production"]
-    },
-    "lint": {
+    "@nx/eslint:lint": {
       "inputs": [
         "default",
+        "^default",
         "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore"
-      ]
+        "{workspaceRoot}/.eslintignore",
+        "{workspaceRoot}/tools/eslint-rules/**/*"
+      ],
+      "cache": true
     }
   },
   "namedInputs": {
@@ -46,7 +54,8 @@
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s",
-      "!{projectRoot}/.eslintrc.json"
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/src/test-setup.[jt]s"
     ],
     "sharedGlobals": []
   },
@@ -68,18 +77,66 @@
       "inlineStyle": true,
       "standalone": true,
       "changeDetection": "OnPush",
-      "flat": "true"
+      "flat": "true",
+      "type": "component"
     },
     "@nx/angular:service": {
-      "skipTests": true
+      "skipTests": true,
+      "type": "service"
     },
     "@nx/angular:directive": {
       "skipTests": true,
-      "standalone": true
+      "standalone": true,
+      "type": "directive"
     },
     "@nx/angular:pipe": {
       "skipTests": true,
-      "standalone": true
+      "standalone": true,
+      "typeSeparator": "."
+    },
+    "@schematics/angular:component": {
+      "type": "component"
+    },
+    "@schematics/angular:directive": {
+      "type": "directive"
+    },
+    "@schematics/angular:service": {
+      "type": "service"
+    },
+    "@nx/angular:scam": {
+      "type": "component"
+    },
+    "@nx/angular:scam-directive": {
+      "type": "directive"
+    },
+    "@nx/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:guard": {
+      "typeSeparator": "."
+    },
+    "@nx/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:interceptor": {
+      "typeSeparator": "."
+    },
+    "@nx/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:module": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:pipe": {
+      "typeSeparator": "."
+    },
+    "@nx/angular:resolver": {
+      "typeSeparator": "."
+    },
+    "@schematics/angular:resolver": {
+      "typeSeparator": "."
     }
-  }
+  },
+  "useInferencePlugins": false,
+  "analytics": false
 }

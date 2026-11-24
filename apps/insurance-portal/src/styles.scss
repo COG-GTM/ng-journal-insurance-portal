@@ -1,9 +1,158 @@
-@import 'primeng/resources/themes/lara-light-blue/theme.css';
-@import 'primeng/resources/primeng.css';
-
 html,
 body {
   margin: 0px;
   padding: 0px;
   font-family: var(--font-family);
+}
+
+/* Table and chip metrics of the PrimeNG 16 bootstrap4-light-blue theme, which styled mode no longer ships. */
+.p-datatable .p-datatable-thead > tr > th {
+  padding: 1rem;
+  border-width: 1px 0 2px 0;
+  border-color: #dee2e6;
+  background: #ffffff;
+  font-weight: 600;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  padding: 1rem;
+  border-width: 1px 0 0 0;
+  border-color: #dee2e6;
+}
+
+.p-chip.p-component {
+  padding: 0 0.75rem;
+}
+
+.p-chip .p-chip-label {
+  margin: 0.25rem 0;
+  line-height: 1.5;
+}
+
+/* Overlay metrics of the PrimeNG 16 bootstrap4-light-blue theme for the datepicker and select panels. */
+.p-datepicker-panel.p-component,
+.p-select-overlay.p-component {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: none;
+}
+
+.p-datepicker-panel.p-component {
+  padding: 0;
+}
+
+.p-datepicker-panel .p-datepicker-header {
+  padding: 0.5rem;
+  background: #efefef;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 4px 4px 0 0;
+}
+
+.p-datepicker-panel .p-datepicker-title {
+  font-weight: 600;
+}
+
+.p-datepicker-panel .p-datepicker-select-month,
+.p-datepicker-panel .p-datepicker-select-year {
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.p-datepicker-panel .p-datepicker-select-month {
+  margin-right: 0.5rem;
+}
+
+.p-datepicker-panel .p-button.p-datepicker-prev-button,
+.p-datepicker-panel .p-button.p-datepicker-next-button {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+}
+
+.p-datepicker-panel .p-datepicker-day-view {
+  margin: 0.5rem 0;
+}
+
+.p-datepicker-panel .p-datepicker-day-cell,
+.p-datepicker-panel .p-datepicker-weekday-cell {
+  padding: 0.5rem;
+}
+
+.p-datepicker-panel .p-datepicker-day {
+  border-radius: 4px;
+}
+
+.p-datepicker-panel .p-datepicker-today > .p-datepicker-day {
+  background: #ced4da;
+}
+
+.p-select-overlay .p-select-option {
+  padding: 0.5rem 1.5rem;
+}
+
+.p-select-overlay .p-select-option.p-select-option-selected,
+.p-select-overlay .p-select-option.p-select-option-selected.p-focus {
+  background: #007bff;
+  color: #ffffff;
+}
+
+/* Toast metrics and solid severity colours of the PrimeNG 16 bootstrap4-light-blue theme. */
+.p-toast .p-toast-message {
+  margin: 0 0 1rem 0;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 4px;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+  backdrop-filter: none;
+}
+
+.p-toast .p-toast-message .p-toast-message-content {
+  padding: 1rem;
+  gap: 0;
+  border-width: 0;
+}
+
+.p-toast .p-toast-message .p-toast-message-text {
+  margin: 0 0 0 1rem;
+  gap: 0;
+}
+
+.p-toast .p-toast-message .p-toast-message-icon {
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
+}
+
+.p-toast .p-toast-message .p-toast-summary {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.p-toast .p-toast-message .p-toast-detail {
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+}
+
+.p-toast .p-toast-message .p-toast-close-button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+@each $severity, $bg, $border, $color in (info, #cce5ff, #b8daff, #004085),
+  (success, #d4edda, #c3e6cb, #155724), (warn, #fff3cd, #ffeeba, #856404),
+  (error, #f8d7da, #f5c6cb, #721c24)
+{
+  .p-toast .p-toast-message.p-toast-message-#{$severity} {
+    background: $bg;
+    border-color: $border;
+    color: $color;
+
+    .p-toast-message-icon,
+    .p-toast-close-button,
+    .p-toast-summary,
+    .p-toast-detail {
+      color: $color;
+    }
+  }
 }

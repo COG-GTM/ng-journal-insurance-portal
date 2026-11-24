@@ -2,12 +2,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  Input,
-  OnDestroy,
+  input,
+  ErrorHandler,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComplaintFacadeService } from '@ng-journal/complaint/data-access';
-import { Subject, takeUntil } from 'rxjs';
+import { switchMap, catchError, EMPTY } from 'rxjs';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import {
   CardComponent,
   HeaderComponent,
@@ -18,7 +19,6 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
 @Component({
   selector: 'ng-journal-details',
-  standalone: true,
   imports: [
     CommonModule,
     HeaderComponent,
@@ -28,7 +28,7 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
     FeatureFlagDirective,
   ],
   template: `<ng-journal-header title="Complaint Details" />
-    <ng-container *ngIf="complaint() as complaint">
+    @if (complaint(); as complaint) {
       <ng-journal-card additionalClasses="grid">
         <div class="col-2 font-bold">Customer:</div>
         <div class="col-4">
@@ -38,7 +38,7 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
               else customerDetailsDisabled
             "
             [route]="['/customer', complaint.customer?.id, 'details']"
-          >
+            >
             {{ complaint.customer?.label }}
           </ng-journal-hyperlink>
           <ng-template #customerDetailsDisabled>
@@ -58,24 +58,26 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
           {{ complaint.description }}
         </div>
       </ng-journal-card>
-    </ng-container> `,
+    }`,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailsComponent implements OnDestroy {
+export class DetailsComponent {
   readonly #complaintFacade = inject(ComplaintFacadeService);
   readonly complaint = this.#complaintFacade.selectedComplaint;
-  readonly #destroySetId = new Subject<void>();
-  @Input() set id(id: string) {
-    this.#destroySetId.next();
-    this.#complaintFacade
-      .loadComplaint(id)
-      .pipe(takeUntil(this.#destroySetId))
-      .subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.#destroySetId.next();
-    this.#destroySetId.complete();
-  }
+  readonly #errorHandler = inject(ErrorHandler);
+  readonly id = input.required<string>();
+  readonly #loadOnIdChange = toObservable(this.id)
+    .pipe(
+      switchMap((id) =>
+        this.#complaintFacade.loadComplaint(id).pipe(
+          catchError((error) => {
+            this.#errorHandler.handleError(error);
+            return EMPTY;
+          })
+        )
+      ),
+      takeUntilDestroyed()
+    )
+    .subscribe();
 }

@@ -68,8 +68,8 @@ export default async function (tree: Tree, options: ApiGeneratorSchema) {
   const normalizedOptions = normalizeOptions(tree, options);
 
   await libraryGenerator(tree, {
-    name: normalizedOptions.name,
-    directory: normalizedOptions.domainDirectory,
+    name: normalizedOptions.projectName,
+    directory: normalizedOptions.projectRoot,
     tags: normalizedOptions.parsedTags.join(','),
     skipModule: true,
   });

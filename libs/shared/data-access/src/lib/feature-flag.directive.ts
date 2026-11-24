@@ -1,11 +1,12 @@
 import {
+  ChangeDetectorRef,
   Directive,
   effect,
   inject,
-  Input,
   OnChanges,
   TemplateRef,
   ViewContainerRef,
+  input,
 } from '@angular/core';
 import { FeatureFlag } from '@ng-journal/shared/utils-feature-flags';
 import { FeatureFlagsFacadeService } from './facades/feature-flags-facade.service';
@@ -18,15 +19,17 @@ export class FeatureFlagDirective implements OnChanges {
   readonly #templateRef = inject(TemplateRef<unknown>);
   readonly #viewContainerRef = inject(ViewContainerRef);
   readonly #featureFlagsFacade = inject(FeatureFlagsFacadeService);
+  readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
-  @Input({ required: true, alias: 'ngJournalFeatureFlag' })
-  featureFlag!: FeatureFlag | null;
+  readonly featureFlag = input.required<FeatureFlag | null>({
+    alias: 'ngJournalFeatureFlag',
+  });
 
-  @Input() ngJournalFeatureFlagElse: TemplateRef<unknown> | null = null;
+  readonly ngJournalFeatureFlagElse = input<TemplateRef<unknown> | null>(null);
 
   constructor() {
     effect(() => {
-      if (this.featureFlag) {
+      if (this.featureFlag()) {
         this.#onChanges();
       }
     });
@@ -38,18 +41,21 @@ export class FeatureFlagDirective implements OnChanges {
 
   #onChanges() {
     this.#viewContainerRef.clear();
+    const ngJournalFeatureFlagElse = this.ngJournalFeatureFlagElse();
     if (this.#featureFlagEnabled()) {
       this.#viewContainerRef.createEmbeddedView(this.#templateRef);
-    } else if (this.ngJournalFeatureFlagElse) {
-      this.#viewContainerRef.createEmbeddedView(this.ngJournalFeatureFlagElse);
+    } else if (ngJournalFeatureFlagElse) {
+      this.#viewContainerRef.createEmbeddedView(ngJournalFeatureFlagElse);
     }
+    this.#changeDetectorRef.markForCheck();
   }
 
   #featureFlagEnabled() {
-    if (!this.featureFlag) {
+    const featureFlag = this.featureFlag();
+    if (!featureFlag) {
       return true;
     }
 
-    return this.#featureFlagsFacade.featureFlagEnabled(this.featureFlag);
+    return this.#featureFlagsFacade.featureFlagEnabled(featureFlag);
   }
 }

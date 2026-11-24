@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+
 import { primeNgModules } from '@ng-journal/shared/utils';
 
 export enum ContractStatusChipStyle {
@@ -10,9 +10,10 @@ export enum ContractStatusChipStyle {
 
 @Component({
   selector: 'ng-journal-contract-status-chip',
-  standalone: true,
-  imports: [CommonModule, ...primeNgModules],
-  template: `<p-chip [label]="label" [class]="style"></p-chip> `,
+  imports: [...primeNgModules],
+  template: `<span [class]="style()"
+    ><p-chip [label]="label()"></p-chip
+  ></span>`,
   styles: [
     `
       ::ng-deep .active .p-chip {
@@ -32,6 +33,6 @@ export enum ContractStatusChipStyle {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContractStatusChipComponent {
-  @Input({ required: true }) label!: string;
-  @Input({ required: true }) style!: ContractStatusChipStyle;
+  readonly label = input.required<string>();
+  readonly style = input.required<ContractStatusChipStyle>();
 }

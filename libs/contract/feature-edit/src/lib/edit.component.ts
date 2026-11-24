@@ -1,5 +1,12 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  input,
+  ErrorHandler,
+} from '@angular/core';
+
 import { ContractFacadeService } from '@ng-journal/contract/data-access';
 import {
   ButtonComponent,
@@ -19,9 +26,10 @@ import {
   filter,
   map,
   Observable,
-  Subject,
-  takeUntil,
   tap,
+  switchMap,
+  catchError,
+  EMPTY,
 } from 'rxjs';
 import {
   ContractStatusDto,
@@ -39,16 +47,14 @@ interface ContractStatusOption {
 
 @Component({
   selector: 'ng-journal-edit',
-  standalone: true,
   imports: [
-    CommonModule,
     HeaderComponent,
     CardComponent,
     ButtonComponent,
     ContractFormComponent,
     ButtonActionDirective,
-    ...primeNgModules,
-  ],
+    ...primeNgModules
+],
   template: ` <ng-journal-header title="Contract Edit" />
     <ng-journal-card>
       <ng-journal-contract-form
@@ -76,17 +82,21 @@ export class EditComponent implements OnInit {
   readonly #route = inject(ActivatedRoute);
   readonly #contractFacade = inject(ContractFacadeService);
   readonly #messageService = inject(MessageService);
-  readonly #destroy = new Subject<void>();
-  #id!: string;
-  @Input() set id(id: string) {
-    this.#destroy.next();
-    this.#contractFacade
-      .loadContract(id)
-      .pipe(takeUntil(this.#destroy))
-      .subscribe();
-
-    this.#id = id;
-  }
+  readonly #errorHandler = inject(ErrorHandler);
+  readonly id = input.required<string>();
+  readonly #loadOnIdChange = toObservable(this.id)
+    .pipe(
+      switchMap((id) =>
+        this.#contractFacade.loadContract(id).pipe(
+          catchError((error) => {
+            this.#errorHandler.handleError(error);
+            return EMPTY;
+          })
+        )
+      ),
+      takeUntilDestroyed()
+    )
+    .subscribe();
   readonly selectedContract = toObservable(
     this.#contractFacade.selectedContract
   ).pipe(
@@ -156,7 +166,7 @@ export class EditComponent implements OnInit {
           phone: '',
           email: '',
         },
-        id: this.#id,
+        id: this.id(),
         policyNumber,
         status: status.id,
       };

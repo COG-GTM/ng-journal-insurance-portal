@@ -13,7 +13,6 @@ import { HeaderComponent } from '@ng-journal/shared/ui';
 
 @Component({
   selector: 'ng-journal-list',
-  standalone: true,
   imports: [CommonModule, HeaderComponent, RouterLink, ...primeNgModules],
   template: ` <ng-journal-header title="Claims" />
     <p-table [value]="claims()" [rowHover]="true">
@@ -33,10 +32,11 @@ import { HeaderComponent } from '@ng-journal/shared/ui';
           <td>{{ claim.date | date }}</td>
           <td>{{ claim.contract.policyNumber }}</td>
           <td>
-            <ng-container *ngIf="claim.contract.customer; else noCustomer">
+            @if (claim.contract.customer) {
               {{ claim.contract.customer.name }}
-            </ng-container>
-            <ng-template #noCustomer> - </ng-template>
+            } @else {
+              -
+            }
           </td>
         </tr>
       </ng-template>

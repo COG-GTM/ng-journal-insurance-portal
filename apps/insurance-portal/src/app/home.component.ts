@@ -1,19 +1,17 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { CardComponent, HeaderComponent } from '@ng-journal/shared/ui';
 import { RouterLink } from '@angular/router';
 import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
 @Component({
   selector: 'ng-journal-home',
-  standalone: true,
   imports: [
-    CommonModule,
     RouterLink,
     HeaderComponent,
     CardComponent,
-    FeatureFlagDirective,
-  ],
+    FeatureFlagDirective
+],
   template: `
     <ng-journal-header title="Home" />
 
