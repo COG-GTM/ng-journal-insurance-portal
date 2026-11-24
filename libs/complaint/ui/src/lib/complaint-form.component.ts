@@ -7,7 +7,6 @@ import { ComplaintTypeDto, Customer } from '@ng-journal/complaint/models';
 
 @Component({
   selector: 'ng-journal-complaint-form',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, ...primeNgModules],
   template: ` <form [formGroup]="form" class="grid">
     <div class="col-4 flex flex-column gap-2">

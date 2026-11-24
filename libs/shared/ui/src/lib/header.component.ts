@@ -10,7 +10,6 @@ import { primeNgModules } from '@ng-journal/shared/utils';
 
 @Component({
   selector: 'ng-journal-header',
-  standalone: true,
   imports: [CommonModule, ...primeNgModules],
   template: ` <ng-container [ngSwitch]="type">
       <ng-container *ngSwitchCase="'title'">

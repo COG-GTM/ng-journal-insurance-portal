@@ -13,7 +13,6 @@ import { HeaderComponent } from '@ng-journal/shared/ui';
 
 @Component({
   selector: 'ng-journal-list',
-  standalone: true,
   imports: [CommonModule, HeaderComponent, RouterLink, ...primeNgModules],
   template: ` <ng-journal-header title="Claims" />
     <p-table [value]="claims()" [rowHover]="true">

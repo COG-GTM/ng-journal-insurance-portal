@@ -6,7 +6,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { ChipModule } from 'primeng/chip';
 import { ToastModule } from 'primeng/toast';
-import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TextareaModule } from 'primeng/textarea';
 
 export const primeNgModules: Type<unknown>[] = [
   ButtonModule,
@@ -16,5 +16,5 @@ export const primeNgModules: Type<unknown>[] = [
   DropdownModule,
   ChipModule,
   ToastModule,
-  InputTextareaModule,
+  TextareaModule,
 ];

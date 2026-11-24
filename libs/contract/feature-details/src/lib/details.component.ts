@@ -22,7 +22,6 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
 @Component({
   selector: 'ng-journal-details',
-  standalone: true,
   imports: [
     CommonModule,
     HeaderComponent,

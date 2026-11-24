@@ -11,7 +11,6 @@ import {
 
 @Component({
   selector: 'ng-journal-claim-form',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, ...primeNgModules],
   template: `<form [formGroup]="form" class="grid">
     <div class="col-6 flex flex-column gap-2">

@@ -34,7 +34,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ng-journal-create',
-  standalone: true,
   imports: [
     CommonModule,
     HeaderComponent,

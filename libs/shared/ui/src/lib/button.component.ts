@@ -25,7 +25,6 @@ export type ButtonStyle = (typeof buttonStyle)[number];
 
 @Component({
   selector: 'ng-journal-button',
-  standalone: true,
   imports: [CommonModule, ...primeNgModules],
   template: `
     <p-button

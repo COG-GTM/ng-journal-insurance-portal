@@ -6,7 +6,6 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
 @Component({
   selector: 'ng-journal-home',
-  standalone: true,
   imports: [
     CommonModule,
     RouterLink,

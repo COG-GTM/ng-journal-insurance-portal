@@ -6,7 +6,6 @@ import { SidebarComponent } from './sidebar.component';
 
 @Component({
   selector: 'ng-journal-root',
-  standalone: true,
   imports: [CommonModule, RouterOutlet, SidebarComponent, ...primeNgModules],
   template: `
     <p-toast />

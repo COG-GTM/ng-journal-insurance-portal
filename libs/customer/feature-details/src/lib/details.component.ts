@@ -13,7 +13,6 @@ import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'ng-journal-details',
-  standalone: true,
   imports: [CommonModule, HeaderComponent, CardComponent, ...primeNgModules],
   template: ` <ng-journal-header title="Customer Details" />
 

@@ -30,7 +30,6 @@ const listMetaData: RouteMetaData = {
 
 @Component({
   selector: 'ng-journal-sidebar',
-  standalone: true,
   imports: [
     CommonModule,
     CapitalizePipe,

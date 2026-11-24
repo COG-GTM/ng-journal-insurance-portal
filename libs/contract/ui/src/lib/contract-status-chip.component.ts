@@ -10,9 +10,8 @@ export enum ContractStatusChipStyle {
 
 @Component({
   selector: 'ng-journal-contract-status-chip',
-  standalone: true,
   imports: [CommonModule, ...primeNgModules],
-  template: `<p-chip [label]="label" [class]="style"></p-chip> `,
+  template: `<span [class]="style"><p-chip [label]="label"></p-chip></span>`,
   styles: [
     `
       ::ng-deep .active .p-chip {

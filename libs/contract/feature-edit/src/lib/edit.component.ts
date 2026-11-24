@@ -39,7 +39,6 @@ interface ContractStatusOption {
 
 @Component({
   selector: 'ng-journal-edit',
-  standalone: true,
   imports: [
     CommonModule,
     HeaderComponent,

@@ -21,8 +21,7 @@
         ],
         "styles": [
           "apps/insurance-portal/src/styles.scss",
-          "node_modules/primeng/resources/themes/bootstrap4-light-blue/theme.css",
-          "node_modules/primeng/resources/primeng.min.css",
+          "apps/insurance-portal/src/legacy-theme-variables.css",
           "node_modules/primeflex/primeflex.css"
         ],
         "scripts": []

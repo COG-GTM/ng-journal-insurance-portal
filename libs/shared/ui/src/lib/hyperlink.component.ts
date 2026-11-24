@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ng-journal-hyperlink',
-  standalone: true,
   imports: [CommonModule, RouterLink],
   template: `<a
     [routerLink]="route"

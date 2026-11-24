@@ -11,7 +11,6 @@ import { ContractForm } from '@ng-journal/contract/utils';
 
 @Component({
   selector: 'ng-journal-contract-form',
-  standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
