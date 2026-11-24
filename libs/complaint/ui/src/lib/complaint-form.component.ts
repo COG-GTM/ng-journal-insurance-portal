@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { ComplaintForm } from '@ng-journal/complaint/utils';
 import { primeNgModules } from '@ng-journal/shared/utils';
@@ -8,7 +8,7 @@ import { ComplaintTypeDto, Customer } from '@ng-journal/complaint/models';
 @Component({
   selector: 'ng-journal-complaint-form',
   imports: [ReactiveFormsModule, ...primeNgModules],
-  template: ` <form [formGroup]="form" class="grid">
+  template: ` <form [formGroup]="form()" class="grid">
     <div class="col-4 flex flex-column gap-2">
       <label htmlFor="type">Type</label>
       <p-select
@@ -18,8 +18,8 @@ import { ComplaintTypeDto, Customer } from '@ng-journal/complaint/models';
         placeholder="Select type"
         [style]="{ width: '100%' }"
       />
-      @if (!!form.controls.type.errors?.['required'] &&
-      form.controls.type.dirty) {
+      @if (!!form().controls.type.errors?.['required'] &&
+      form().controls.type.dirty) {
       <span class="text-red-700"> Input is required. </span>
       }
     </div>
@@ -27,21 +27,21 @@ import { ComplaintTypeDto, Customer } from '@ng-journal/complaint/models';
       <label htmlFor="customer">Customer</label>
       <p-select
         name="customer"
-        [options]="customers"
+        [options]="customers()"
         formControlName="customer"
         placeholder="Select customer"
         [style]="{ width: '100%' }"
       />
-      @if (!!form.controls.customer.errors?.['required'] &&
-      form.controls.customer.dirty) {
+      @if (!!form().controls.customer.errors?.['required'] &&
+      form().controls.customer.dirty) {
       <span class="text-red-700"> Input is required. </span>
       }
     </div>
     <div class="col-4 flex flex-column gap-2">
       <label htmlFor="date">Date</label>
       <p-datepicker id="date" formControlName="date" [fluid]="true" />
-      @if (!!form.controls.date.errors?.['required'] &&
-      form.controls.date.dirty) {
+      @if (!!form().controls.date.errors?.['required'] &&
+      form().controls.date.dirty) {
       <span class="text-red-700"> Input is required. </span>
       }
     </div>
@@ -54,8 +54,8 @@ import { ComplaintTypeDto, Customer } from '@ng-journal/complaint/models';
         id="description"
         formControlName="description"
       ></textarea>
-      @if (!!form.controls.description.errors?.['required'] &&
-      form.controls.description.dirty) {
+      @if (!!form().controls.description.errors?.['required'] &&
+      form().controls.description.dirty) {
       <span class="text-red-700"> Input is required. </span>
       }
     </div>
@@ -64,7 +64,7 @@ import { ComplaintTypeDto, Customer } from '@ng-journal/complaint/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComplaintFormComponent {
-  @Input({ required: true }) form!: ComplaintForm;
-  @Input({ required: true }) customers!: Customer[];
+  readonly form = input.required<ComplaintForm>();
+  readonly customers = input.required<Customer[]>();
   readonly typeOptions = Object.values(ComplaintTypeDto);
 }

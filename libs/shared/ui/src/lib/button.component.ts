@@ -2,9 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
   Output,
   signal,
+  input,
 } from '@angular/core';
 
 import { primeNgModules } from '@ng-journal/shared/utils';
@@ -28,12 +28,12 @@ export type ButtonStyle = (typeof buttonStyle)[number];
   imports: [...primeNgModules],
   template: `
     <p-button
-      [label]="label"
-      [type]="type"
+      [label]="label()"
+      [type]="type()"
       [loading]="loading()"
-      [disabled]="disabled"
-      [style]="{width}"
-      [styleClass]="'p-button-' + style"
+      [disabled]="disabled()"
+      [style]="{ width: width() }"
+      [styleClass]="'p-button-' + style()"
       (onClick)="clickEvent.emit()"
     />
   `,
@@ -41,11 +41,11 @@ export type ButtonStyle = (typeof buttonStyle)[number];
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {
-  @Input({ required: true }) label!: string;
-  @Input() style: ButtonStyle = 'primary';
-  @Input() type: ButtonType = 'button';
-  @Input() width?: string;
-  @Input() disabled = false;
+  readonly label = input.required<string>();
+  readonly style = input<ButtonStyle>('primary');
+  readonly type = input<ButtonType>('button');
+  readonly width = input<string>();
+  readonly disabled = input(false);
   @Output() clickEvent = new EventEmitter<void>();
   loading = signal(false);
 }

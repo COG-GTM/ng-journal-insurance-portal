@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { RouterLink } from '@angular/router';
 
@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
   selector: 'ng-journal-hyperlink',
   imports: [RouterLink],
   template: `<a
-    [routerLink]="route"
+    [routerLink]="route()"
     class="no-underline hover:underline text-900 hover:text-primary-400"
   >
     <ng-content></ng-content>
@@ -16,5 +16,5 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HyperlinkComponent {
-  @Input({ required: true }) route!: unknown[];
+  readonly route = input.required<unknown[]>();
 }

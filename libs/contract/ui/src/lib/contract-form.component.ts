@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  input,
+} from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { primeNgModules } from '@ng-journal/shared/utils';
@@ -16,7 +21,7 @@ import { ContractForm } from '@ng-journal/contract/utils';
     ContractStatusChipComponent,
     ...primeNgModules,
   ],
-  template: ` <form [formGroup]="form" class="grid">
+  template: ` <form [formGroup]="form()" class="grid">
     <div class="col-6 flex flex-column gap-2">
       @if (isEditMode) {
       <label htmlFor="status">Status</label>
@@ -27,8 +32,8 @@ import { ContractForm } from '@ng-journal/contract/utils';
         placeholder="Select status"
         [style]="{ width: '100%' }"
       />
-      @if (!!form.controls.status.errors?.['required'] &&
-      form.controls.status.dirty) {
+      @if (!!form().controls.status.errors?.['required'] &&
+      form().controls.status.dirty) {
       <span class="text-red-700"> Input is required. </span>
       } } @else {
       <label htmlFor="status">Status</label>
@@ -43,13 +48,13 @@ import { ContractForm } from '@ng-journal/contract/utils';
       <label htmlFor="customer">Customer</label>
       <p-select
         name="customer"
-        [options]="customers"
+        [options]="customers()"
         formControlName="customer"
         placeholder="Select customer"
         [style]="{ width: '100%' }"
       />
-      @if (!!form.controls.customer.errors?.['required'] &&
-      form.controls.customer.dirty) {
+      @if (!!form().controls.customer.errors?.['required'] &&
+      form().controls.customer.dirty) {
       <span class="text-red-700"> Input is required. </span>
       }
     </div>
@@ -62,8 +67,8 @@ import { ContractForm } from '@ng-journal/contract/utils';
         id="policyNumber"
         formControlName="policyNumber"
       />
-      @if (!!form.controls.policyNumber.errors?.['required'] &&
-      form.controls.policyNumber.dirty) {
+      @if (!!form().controls.policyNumber.errors?.['required'] &&
+      form().controls.policyNumber.dirty) {
       <span class="text-red-700"> Input is required. </span>
       }
     </div>
@@ -75,8 +80,8 @@ import { ContractForm } from '@ng-journal/contract/utils';
         formControlName="insuranceStartOn"
         [fluid]="true"
       />
-      @if (!!form.controls.insuranceStartOn.errors?.['required'] &&
-      form.controls.insuranceStartOn.dirty) {
+      @if (!!form().controls.insuranceStartOn.errors?.['required'] &&
+      form().controls.insuranceStartOn.dirty) {
       <span class="text-red-700"> Input is required. </span>
       }
     </div>
@@ -85,14 +90,14 @@ import { ContractForm } from '@ng-journal/contract/utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContractFormComponent {
-  @Input({ required: true }) form!: ContractForm;
-  @Input({ required: true }) customers!: CustomerOption[];
+  readonly form = input.required<ContractForm>();
+  readonly customers = input.required<CustomerOption[]>();
   #isEditMode!: boolean;
   @Input({ required: true }) set isEditMode(value: boolean) {
     this.#isEditMode = value;
     if (!value) {
-      this.form.controls.status.disable();
-      this.form.controls.status.setValue({
+      this.form().controls.status.disable();
+      this.form().controls.status.setValue({
         id: ContractStatusDto.Pending,
         label: ContractStatusDto.Pending,
       });
