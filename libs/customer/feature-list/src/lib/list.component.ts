@@ -4,7 +4,7 @@ import {
   inject,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { CustomerFacadeService } from '@ng-journal/customer/data-access';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -13,7 +13,7 @@ import { HeaderComponent } from '@ng-journal/shared/ui';
 
 @Component({
   selector: 'ng-journal-list',
-  imports: [CommonModule, RouterLink, HeaderComponent, ...primeNgModules],
+  imports: [RouterLink, HeaderComponent, ...primeNgModules],
   template: ` <ng-journal-header title="Customers" />
     <p-table [value]="customers()" [rowHover]="true">
       <ng-template pTemplate="header">

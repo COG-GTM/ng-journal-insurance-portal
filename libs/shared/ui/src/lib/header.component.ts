@@ -11,36 +11,38 @@ import { primeNgModules } from '@ng-journal/shared/utils';
 @Component({
   selector: 'ng-journal-header',
   imports: [CommonModule, ...primeNgModules],
-  template: ` <ng-container [ngSwitch]="type">
-      <ng-container *ngSwitchCase="'title'">
-        <h1
-          class="text-2xl flex flex-row justify-content-between align-items-center"
-        >
-          <ng-container *ngTemplateOutlet="titleInnerContent"></ng-container>
-        </h1>
-        <hr />
-      </ng-container>
-      <ng-container *ngSwitchCase="'subtitle'">
-        <h2
-          class="text-lg flex flex-row justify-content-between align-items-center"
-        >
-          <ng-container *ngTemplateOutlet="titleInnerContent"></ng-container>
-        </h2>
-      </ng-container>
-    </ng-container>
-
-    <ng-template #titleInnerContent>
-      <span>{{ title }}</span>
-      <p-button
-        *ngIf="showEditButton"
-        type="button"
-        styleClass="bg-primary-500 border-none"
-        (click)="this.editButtonClicked.emit()"
+  template: `
+@switch (type) {
+  @case ('title') {
+    <h1
+      class="text-2xl flex flex-row justify-content-between align-items-center"
       >
-        <i class="mr-2 fa-solid fa-pencil"></i>
-        <span>Edit</span>
-      </p-button>
-    </ng-template>`,
+      <ng-container *ngTemplateOutlet="titleInnerContent"></ng-container>
+    </h1>
+    <hr />
+  }
+  @case ('subtitle') {
+    <h2
+      class="text-lg flex flex-row justify-content-between align-items-center"
+      >
+      <ng-container *ngTemplateOutlet="titleInnerContent"></ng-container>
+    </h2>
+  }
+}
+
+<ng-template #titleInnerContent>
+  <span>{{ title }}</span>
+  @if (showEditButton) {
+    <p-button
+      type="button"
+      styleClass="bg-primary-500 border-none"
+      (click)="this.editButtonClicked.emit()"
+      >
+      <i class="mr-2 fa-solid fa-pencil"></i>
+      <span>Edit</span>
+    </p-button>
+  }
+</ng-template>`,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

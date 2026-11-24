@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ng-journal-hyperlink',
-  imports: [CommonModule, RouterLink],
+  imports: [RouterLink],
   template: `<a
     [routerLink]="route"
     class="no-underline hover:underline text-900 hover:text-primary-400"

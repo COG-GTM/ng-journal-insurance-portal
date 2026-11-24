@@ -1,5 +1,5 @@
 import { Component, inject, Input, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ContractFacadeService } from '@ng-journal/contract/data-access';
 import {
   ButtonComponent,
@@ -40,14 +40,13 @@ interface ContractStatusOption {
 @Component({
   selector: 'ng-journal-edit',
   imports: [
-    CommonModule,
     HeaderComponent,
     CardComponent,
     ButtonComponent,
     ContractFormComponent,
     ButtonActionDirective,
-    ...primeNgModules,
-  ],
+    ...primeNgModules
+],
   template: ` <ng-journal-header title="Contract Edit" />
     <ng-journal-card>
       <ng-journal-contract-form

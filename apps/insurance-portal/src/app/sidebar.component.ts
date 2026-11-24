@@ -38,15 +38,16 @@ const listMetaData: RouteMetaData = {
     FeatureFlagDirective,
   ],
   template: `<nav>
-    <ul *ngFor="let config of routingConfigs" class="list-none w-full p-1">
-      <li class="">
-        <div class="font-medium">{{ config.domain | capitalize }}</div>
-        <hr class="mb-1" />
-        <ng-container *ngFor="let route of config.routes">
-          <ng-container
-            *ngJournalFeatureFlag="buildFeatureFlag(config.domain, route.path)"
-          >
-            <div
+      @for (config of routingConfigs; track config) {
+        <ul class="list-none w-full p-1">
+          <li class="">
+            <div class="font-medium">{{ config.domain | capitalize }}</div>
+            <hr class="mb-1" />
+            @for (route of config.routes; track route) {
+              <ng-container
+                *ngJournalFeatureFlag="buildFeatureFlag(config.domain, route.path)"
+                >
+                <div
               [routerLink]="
                 config.domain !== 'General'
                   ? [config.domain, route.path]
@@ -57,20 +58,21 @@ const listMetaData: RouteMetaData = {
                   ? [config.domain, route.path]
                   : 'home'
               "
-              #rl="routerLinkActive"
-              class="p-1 mb-1 rounded-md w-full hover:bg-primary-400"
+                  #rl="routerLinkActive"
+                  class="p-1 mb-1 rounded-md w-full hover:bg-primary-400"
               [ngClass]="
                 rl.isActive ? 'bg-primary-600 border border-primary-400' : ''
               "
-            >
-              <i [class]="'mr-2 fa-solid fa-' + route.icon"></i>
-              {{ route.label }}
-            </div>
-          </ng-container>
-        </ng-container>
-      </li>
-    </ul>
-  </nav> `,
+                  >
+                  <i [class]="'mr-2 fa-solid fa-' + route.icon"></i>
+                  {{ route.label }}
+                </div>
+              </ng-container>
+            }
+          </li>
+        </ul>
+      }
+    </nav>`,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

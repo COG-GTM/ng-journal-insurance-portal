@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { BaseUrl, primeNgModules } from '@ng-journal/shared/utils';
 import { RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './sidebar.component';
 
 @Component({
   selector: 'ng-journal-root',
-  imports: [CommonModule, RouterOutlet, SidebarComponent, ...primeNgModules],
+  imports: [RouterOutlet, SidebarComponent, ...primeNgModules],
   template: `
     <p-toast />
 

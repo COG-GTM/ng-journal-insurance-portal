@@ -5,7 +5,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ClaimFacadeService } from '@ng-journal/claim/data-access';
 import { ClaimFormComponent } from '@ng-journal/claim/ui';
 import {
@@ -28,13 +28,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'ng-journal-create',
   imports: [
-    CommonModule,
     ClaimFormComponent,
     HeaderComponent,
     CardComponent,
     ButtonComponent,
-    ButtonActionDirective,
-  ],
+    ButtonActionDirective
+],
   template: ` <ng-journal-header title="Complaint Create" />
     <ng-journal-card>
       <ng-journal-claim-form [form]="form" [contracts]="contracts() ?? []" />

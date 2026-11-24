@@ -5,7 +5,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ContractFacadeService } from '@ng-journal/contract/data-access';
 import {
   ButtonComponent,
@@ -35,14 +35,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'ng-journal-create',
   imports: [
-    CommonModule,
     HeaderComponent,
     ContractFormComponent,
     CardComponent,
     ButtonComponent,
     ButtonActionDirective,
-    ContractStatusChipComponent,
-  ],
+    ContractStatusChipComponent
+],
   template: ` <ng-journal-header title="Contract Create" />
     <ng-journal-card>
       <ng-journal-contract-form

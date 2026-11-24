@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ComplaintForm } from '@ng-journal/complaint/utils';
 import { primeNgModules } from '@ng-journal/shared/utils';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -7,53 +7,43 @@ import { ComplaintTypeDto, Customer } from '@ng-journal/complaint/models';
 
 @Component({
   selector: 'ng-journal-complaint-form',
-  imports: [CommonModule, ReactiveFormsModule, ...primeNgModules],
+  imports: [ReactiveFormsModule, ...primeNgModules],
   template: ` <form [formGroup]="form" class="grid">
     <div class="col-4 flex flex-column gap-2">
       <label htmlFor="type">Type</label>
-      <p-dropdown
+      <p-select
         name="type"
         [options]="typeOptions"
         formControlName="type"
         placeholder="Select type"
         [style]="{ width: '100%' }"
       />
-      <span
-        *ngIf="!!form.controls.type.errors?.['required'] && form.controls.type.dirty"
-        class="text-red-700"
-      >
-        Input is required.
-      </span>
+      @if (!!form.controls.type.errors?.['required'] &&
+      form.controls.type.dirty) {
+      <span class="text-red-700"> Input is required. </span>
+      }
     </div>
     <div class="col-4 flex flex-column gap-2">
       <label htmlFor="customer">Customer</label>
-      <p-dropdown
+      <p-select
         name="customer"
         [options]="customers"
         formControlName="customer"
         placeholder="Select customer"
         [style]="{ width: '100%' }"
       />
-      <span
-        *ngIf="!!form.controls.customer.errors?.['required'] && form.controls.customer.dirty"
-        class="text-red-700"
-      >
-        Input is required.
-      </span>
+      @if (!!form.controls.customer.errors?.['required'] &&
+      form.controls.customer.dirty) {
+      <span class="text-red-700"> Input is required. </span>
+      }
     </div>
     <div class="col-4 flex flex-column gap-2">
       <label htmlFor="date">Date</label>
-      <p-calendar
-        id="date"
-        formControlName="date"
-        [style]="{ width: '100%' }"
-      />
-      <span
-        *ngIf="!!form.controls.date.errors?.['required'] && form.controls.date.dirty"
-        class="text-red-700"
-      >
-        Input is required.
-      </span>
+      <p-datepicker id="date" formControlName="date" [fluid]="true" />
+      @if (!!form.controls.date.errors?.['required'] &&
+      form.controls.date.dirty) {
+      <span class="text-red-700"> Input is required. </span>
+      }
     </div>
     <div class="col-12 flex flex-column gap-2">
       <label htmlFor="description">Description</label>
@@ -64,12 +54,10 @@ import { ComplaintTypeDto, Customer } from '@ng-journal/complaint/models';
         id="description"
         formControlName="description"
       ></textarea>
-      <span
-        *ngIf="!!form.controls.description.errors?.['required'] && form.controls.description.dirty"
-        class="text-red-700"
-      >
-        Input is required.
-      </span>
+      @if (!!form.controls.description.errors?.['required'] &&
+      form.controls.description.dirty) {
+      <span class="text-red-700"> Input is required. </span>
+      }
     </div>
   </form>`,
   styles: [],

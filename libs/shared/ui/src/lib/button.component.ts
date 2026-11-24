@@ -6,7 +6,7 @@ import {
   Output,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { primeNgModules } from '@ng-journal/shared/utils';
 
 export const buttonType = ['button', 'submit', 'reset'];
@@ -25,7 +25,7 @@ export type ButtonStyle = (typeof buttonStyle)[number];
 
 @Component({
   selector: 'ng-journal-button',
-  imports: [CommonModule, ...primeNgModules],
+  imports: [...primeNgModules],
   template: `
     <p-button
       [label]="label"

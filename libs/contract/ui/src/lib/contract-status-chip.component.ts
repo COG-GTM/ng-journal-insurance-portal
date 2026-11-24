@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { primeNgModules } from '@ng-journal/shared/utils';
 
 export enum ContractStatusChipStyle {
@@ -10,7 +10,7 @@ export enum ContractStatusChipStyle {
 
 @Component({
   selector: 'ng-journal-contract-status-chip',
-  imports: [CommonModule, ...primeNgModules],
+  imports: [...primeNgModules],
   template: `<span [class]="style"><p-chip [label]="label"></p-chip></span>`,
   styles: [
     `

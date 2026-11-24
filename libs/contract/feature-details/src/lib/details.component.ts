@@ -34,32 +34,30 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
   template: `
     <ng-container
       *ngJournalFeatureFlag="'contract-edit'; else editContractDisabled"
-    >
+      >
       <ng-journal-header
         title="Contract Details"
         [showEditButton]="true"
         (editButtonClicked)="this.onEditButtonClicked()"
-      />
+        />
     </ng-container>
     <ng-template #editContractDisabled>
       <ng-journal-header title="Contract Details" />
     </ng-template>
-
-    <ng-container *ngIf="contract() as contract">
+    
+    @if (contract(); as contract) {
       <ng-journal-card additionalClasses="grid">
         <div class="col-2 font-bold">Status:</div>
         <div class="col-4">
           <ng-journal-contract-status-chip
             [label]="contract.status"
             [style]="contract.status | contractStatusChipStyle"
-          />
+            />
         </div>
-
         <div class="col-2 font-bold">Policynumber:</div>
         <div class="col-4">{{ contract.policyNumber }}</div>
         <div class="col-2 font-bold">Insurance Start:</div>
         <div class="col-4">{{ contract.insuranceStartOn | date }}</div>
-
         <div class="col-2 font-bold">Customer:</div>
         <div class="col-4">
           <ng-journal-hyperlink
@@ -68,21 +66,20 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
               else customerDetailsDisabled
             "
             [route]="['/customer', contract.customer?.id, 'details']"
-          >
+            >
             {{ contract.customer?.label }}
           </ng-journal-hyperlink>
           <ng-template #customerDetailsDisabled>
             {{ contract.customer?.label }}
           </ng-template>
         </div>
-
         <div class="col-2 font-bold">Phone:</div>
         <div class="col-4">{{ contract.customer?.phone }}</div>
         <div class="col-2 font-bold">Email:</div>
         <div class="col-4">{{ contract.customer?.email }}</div>
       </ng-journal-card>
-    </ng-container>
-  `,
+    }
+    `,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

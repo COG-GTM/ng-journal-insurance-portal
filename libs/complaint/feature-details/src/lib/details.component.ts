@@ -27,7 +27,7 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
     FeatureFlagDirective,
   ],
   template: `<ng-journal-header title="Complaint Details" />
-    <ng-container *ngIf="complaint() as complaint">
+    @if (complaint(); as complaint) {
       <ng-journal-card additionalClasses="grid">
         <div class="col-2 font-bold">Customer:</div>
         <div class="col-4">
@@ -37,7 +37,7 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
               else customerDetailsDisabled
             "
             [route]="['/customer', complaint.customer?.id, 'details']"
-          >
+            >
             {{ complaint.customer?.label }}
           </ng-journal-hyperlink>
           <ng-template #customerDetailsDisabled>
@@ -57,7 +57,7 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
           {{ complaint.description }}
         </div>
       </ng-journal-card>
-    </ng-container> `,
+    }`,
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

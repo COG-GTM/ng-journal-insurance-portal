@@ -1,5 +1,5 @@
-import { definePreset } from '@primeng/themes';
-import Lara from '@primeng/themes/lara';
+import { definePreset } from '@primeuix/themes';
+import Lara from '@primeuix/themes/lara';
 
 // Lara tuned to the bootstrap4-light-blue palette the app used before PrimeNG 19 removed CSS themes.
 export const InsurancePortalPreset = definePreset(Lara, {
@@ -53,6 +53,8 @@ export const InsurancePortalPreset = definePreset(Lara, {
           borderColor: '#ced4da',
           hoverBorderColor: '#ced4da',
           color: '#495057',
+          placeholderColor: '#6c757d',
+          iconColor: '#495057',
         },
         text: {
           color: '#212529',
