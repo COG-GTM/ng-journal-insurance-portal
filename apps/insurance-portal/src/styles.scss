@@ -28,3 +28,64 @@ body {
   margin: 0.25rem 0;
   line-height: 1.5;
 }
+
+/* Overlay metrics of the PrimeNG 16 bootstrap4-light-blue theme for the datepicker and select panels. */
+.p-datepicker-panel,
+.p-select-overlay {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: none;
+}
+
+.p-datepicker-panel.p-component {
+  padding: 0;
+}
+
+.p-datepicker-panel .p-datepicker-header {
+  padding: 0.5rem;
+  background: #efefef;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 4px 4px 0 0;
+}
+
+.p-datepicker-panel .p-datepicker-title {
+  font-weight: 600;
+}
+
+.p-datepicker-panel .p-datepicker-select-month,
+.p-datepicker-panel .p-datepicker-select-year {
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.p-datepicker-panel .p-datepicker-select-month {
+  margin-right: 0.5rem;
+}
+
+.p-datepicker-panel .p-button.p-datepicker-prev-button,
+.p-datepicker-panel .p-button.p-datepicker-next-button {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+}
+
+.p-datepicker-panel .p-datepicker-day-view {
+  margin: 0.5rem 0;
+}
+
+.p-datepicker-panel .p-datepicker-day-cell,
+.p-datepicker-panel .p-datepicker-weekday-cell {
+  padding: 0.5rem;
+}
+
+.p-datepicker-panel .p-datepicker-day {
+  border-radius: 4px;
+}
+
+.p-datepicker-panel .p-datepicker-today > .p-datepicker-day {
+  background: #ced4da;
+}
+
+.p-select-overlay .p-select-option {
+  padding: 0.5rem 1.5rem;
+}
