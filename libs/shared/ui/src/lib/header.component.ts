@@ -1,9 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Output,
   input,
+  output,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { primeNgModules } from '@ng-journal/shared/utils';
@@ -46,5 +45,5 @@ export class HeaderComponent {
   readonly title = input.required<string>();
   readonly showEditButton = input(false);
   readonly type = input<'title' | 'subtitle'>('title');
-  @Output() editButtonClicked = new EventEmitter<void>();
+  readonly editButtonClicked = output<void>();
 }

@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
-  Output,
   signal,
   input,
+  output,
 } from '@angular/core';
 
 import { primeNgModules } from '@ng-journal/shared/utils';
@@ -46,6 +45,6 @@ export class ButtonComponent {
   readonly type = input<ButtonType>('button');
   readonly width = input<string>();
   readonly disabled = input(false);
-  @Output() clickEvent = new EventEmitter<void>();
+  readonly clickEvent = output<void>();
   loading = signal(false);
 }
