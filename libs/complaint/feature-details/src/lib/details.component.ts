@@ -2,12 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  Input,
-  OnDestroy,
+  input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComplaintFacadeService } from '@ng-journal/complaint/data-access';
-import { Subject, takeUntil } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import {
   CardComponent,
   HeaderComponent,
@@ -61,20 +61,14 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailsComponent implements OnDestroy {
+export class DetailsComponent {
   readonly #complaintFacade = inject(ComplaintFacadeService);
   readonly complaint = this.#complaintFacade.selectedComplaint;
-  readonly #destroySetId = new Subject<void>();
-  @Input() set id(id: string) {
-    this.#destroySetId.next();
-    this.#complaintFacade
-      .loadComplaint(id)
-      .pipe(takeUntil(this.#destroySetId))
-      .subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.#destroySetId.next();
-    this.#destroySetId.complete();
-  }
+  readonly id = input.required<string>();
+  readonly #loadOnIdChange = toObservable(this.id)
+    .pipe(
+      switchMap((id) => this.#complaintFacade.loadComplaint(id)),
+      takeUntilDestroyed()
+    )
+    .subscribe();
 }

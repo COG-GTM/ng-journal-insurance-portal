@@ -2,14 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  Input,
-  OnDestroy,
+  input,
 } from '@angular/core';
 
 import { CustomerFacadeService } from '@ng-journal/customer/data-access';
 import { CardComponent, HeaderComponent } from '@ng-journal/shared/ui';
 import { primeNgModules } from '@ng-journal/shared/utils';
-import { Subject, takeUntil } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'ng-journal-details',
@@ -58,20 +58,14 @@ import { Subject, takeUntil } from 'rxjs';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailsComponent implements OnDestroy {
+export class DetailsComponent {
   readonly #customerFacade = inject(CustomerFacadeService);
   readonly customer = this.#customerFacade.selectedCustomer;
-  readonly #destroySetId = new Subject<void>();
-  @Input() set id(id: string) {
-    this.#destroySetId.next();
-    this.#customerFacade
-      .loadCustomer(id)
-      .pipe(takeUntil(this.#destroySetId))
-      .subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.#destroySetId.next();
-    this.#destroySetId.complete();
-  }
+  readonly id = input.required<string>();
+  readonly #loadOnIdChange = toObservable(this.id)
+    .pipe(
+      switchMap((id) => this.#customerFacade.loadCustomer(id)),
+      takeUntilDestroyed()
+    )
+    .subscribe();
 }

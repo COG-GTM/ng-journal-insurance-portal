@@ -2,8 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  Input,
-  OnDestroy,
+  input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClaimFacadeService } from '@ng-journal/claim/data-access';
@@ -13,7 +12,8 @@ import {
   HyperlinkComponent,
 } from '@ng-journal/shared/ui';
 import { primeNgModules } from '@ng-journal/shared/utils';
-import { Subject, takeUntil } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
 @Component({
@@ -70,17 +70,14 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailsComponent implements OnDestroy {
+export class DetailsComponent {
   readonly #claimFacade = inject(ClaimFacadeService);
   readonly claim = this.#claimFacade.selectedClaim;
-  readonly #destroy = new Subject<void>();
-  @Input() set id(id: string) {
-    this.#destroy.next();
-    this.#claimFacade.loadClaim(id).pipe(takeUntil(this.#destroy)).subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.#destroy.next();
-    this.#destroy.complete();
-  }
+  readonly id = input.required<string>();
+  readonly #loadOnIdChange = toObservable(this.id)
+    .pipe(
+      switchMap((id) => this.#claimFacade.loadClaim(id)),
+      takeUntilDestroyed()
+    )
+    .subscribe();
 }

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, input } from '@angular/core';
 
 import { ContractFacadeService } from '@ng-journal/contract/data-access';
 import {
@@ -19,9 +19,8 @@ import {
   filter,
   map,
   Observable,
-  Subject,
-  takeUntil,
   tap,
+  switchMap,
 } from 'rxjs';
 import {
   ContractStatusDto,
@@ -74,17 +73,13 @@ export class EditComponent implements OnInit {
   readonly #route = inject(ActivatedRoute);
   readonly #contractFacade = inject(ContractFacadeService);
   readonly #messageService = inject(MessageService);
-  readonly #destroy = new Subject<void>();
-  #id!: string;
-  @Input() set id(id: string) {
-    this.#destroy.next();
-    this.#contractFacade
-      .loadContract(id)
-      .pipe(takeUntil(this.#destroy))
-      .subscribe();
-
-    this.#id = id;
-  }
+  readonly id = input.required<string>();
+  readonly #loadOnIdChange = toObservable(this.id)
+    .pipe(
+      switchMap((id) => this.#contractFacade.loadContract(id)),
+      takeUntilDestroyed()
+    )
+    .subscribe();
   readonly selectedContract = toObservable(
     this.#contractFacade.selectedContract
   ).pipe(
@@ -154,7 +149,7 @@ export class EditComponent implements OnInit {
           phone: '',
           email: '',
         },
-        id: this.#id,
+        id: this.id(),
         policyNumber,
         status: status.id,
       };

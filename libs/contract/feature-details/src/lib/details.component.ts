@@ -2,8 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  Input,
-  OnDestroy,
+  input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContractFacadeService } from '@ng-journal/contract/data-access';
@@ -17,7 +16,8 @@ import {
   ContractStatusChipComponent,
   ContractStatusChipStylePipe,
 } from '@ng-journal/contract/ui';
-import { Subject, takeUntil } from 'rxjs';
+import { switchMap } from 'rxjs';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
 
 @Component({
@@ -83,33 +83,22 @@ import { FeatureFlagDirective } from '@ng-journal/shared/data-access';
   styles: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailsComponent implements OnDestroy {
+export class DetailsComponent {
   readonly #contractFacade = inject(ContractFacadeService);
   readonly #router = inject(Router);
   readonly #route = inject(ActivatedRoute);
   readonly contract = this.#contractFacade.selectedContract;
-  readonly #destroySetId = new Subject<void>();
-  #id!: string;
-  @Input() set id(id: string) {
-    this.#destroySetId.next();
-    this.#contractFacade
-      .loadContract(id)
-      .pipe(takeUntil(this.#destroySetId))
-      .subscribe();
+  readonly id = input.required<string>();
+  readonly #loadOnIdChange = toObservable(this.id)
+    .pipe(
+      switchMap((id) => this.#contractFacade.loadContract(id)),
+      takeUntilDestroyed()
+    )
+    .subscribe();
 
-    this.#id = id;
-  }
-  get id(): string {
-    return this.#id;
-  }
-
-  ngOnDestroy(): void {
-    this.#destroySetId.next();
-    this.#destroySetId.complete();
-  }
 
   onEditButtonClicked(): void {
-    this.#router.navigate([this.id, 'edit'], {
+    this.#router.navigate([this.id(), 'edit'], {
       relativeTo: this.#route.parent,
     });
   }
