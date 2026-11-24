@@ -73,5 +73,11 @@ const lines = [
   '## Screenshots (pixel diff, threshold 0.1)', '', '| Page | Diff % | Side by side (baseline left, upgraded right) |', '| --- | --- | --- |',
   ...shots.map((s) => `| ${s.name} | ${s.pct === null ? 'missing' : s.pct.toFixed(2) + '%'} | [image](side-by-side/${s.name}.png) |`), '',
 ];
+const metricsFile = path.join(report, 'metrics.json');
+if (fs.existsSync(metricsFile)) {
+  const m = JSON.parse(fs.readFileSync(metricsFile, 'utf8'));
+  lines.push('## Build metrics', '', m.note, '', '| | Baseline | Upgraded |', '| --- | --- | --- |',
+    ...['angular', 'builder', 'buildSeconds', 'initialRaw', 'initialTransfer', 'distBytes'].map((k) => `| ${k} | ${m.baseline[k]} | ${m.upgraded[k]} |`), '');
+}
 fs.writeFileSync(path.join(report, 'README.md'), lines.join('\n'));
 console.log(lines.slice(0, 3).join('\n'));
