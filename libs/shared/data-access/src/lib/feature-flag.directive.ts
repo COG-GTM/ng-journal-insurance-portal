@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Directive,
   effect,
   inject,
@@ -18,6 +19,7 @@ export class FeatureFlagDirective implements OnChanges {
   readonly #templateRef = inject(TemplateRef<unknown>);
   readonly #viewContainerRef = inject(ViewContainerRef);
   readonly #featureFlagsFacade = inject(FeatureFlagsFacadeService);
+  readonly #changeDetectorRef = inject(ChangeDetectorRef);
 
   @Input({ required: true, alias: 'ngJournalFeatureFlag' })
   featureFlag!: FeatureFlag | null;
@@ -43,6 +45,7 @@ export class FeatureFlagDirective implements OnChanges {
     } else if (this.ngJournalFeatureFlagElse) {
       this.#viewContainerRef.createEmbeddedView(this.ngJournalFeatureFlagElse);
     }
+    this.#changeDetectorRef.markForCheck();
   }
 
   #featureFlagEnabled() {
