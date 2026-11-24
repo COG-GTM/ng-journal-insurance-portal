@@ -56,7 +56,7 @@ const walk = (suite, prefix) => {
     for (const t of spec.tests) {
       const key = [title, spec.title].filter(Boolean).join(' › ');
       const row = flows.get(key) ?? {};
-      row[t.projectName] = t.status === 'expected' || t.status === 'flaky' ? 'pass' : t.status === 'skipped' ? 'skipped' : 'fail';
+      row[t.projectName.replace(/-screens$/, '')] = t.status === 'expected' || t.status === 'flaky' ? 'pass' : t.status === 'skipped' ? 'skipped' : 'fail';
       flows.set(key, row);
     }
   }
@@ -80,4 +80,5 @@ if (fs.existsSync(metricsFile)) {
     ...['angular', 'builder', 'buildSeconds', 'initialRaw', 'initialTransfer', 'distBytes'].map((k) => `| ${k} | ${m.baseline[k]} | ${m.upgraded[k]} |`), '');
 }
 fs.writeFileSync(path.join(report, 'README.md'), lines.join('\n'));
+if (count('baseline', 'fail') + count('upgraded', 'fail') > 0 || shots.some((s) => s.pct === null)) process.exitCode = 1;
 console.log(lines.slice(0, 3).join('\n'));

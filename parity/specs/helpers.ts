@@ -22,7 +22,7 @@ export async function open(page: Page, route: string, heading: string) {
 export async function shot(page: Page, testInfo: TestInfo, name: string) {
   await page.waitForLoadState('networkidle');
   await page.mouse.move(0, 0);
-  const dir = path.join(__dirname, '..', 'report', 'screens', testInfo.project.name);
+  const dir = path.join(__dirname, '..', 'report', 'screens', testInfo.project.name.replace(/-screens$/, ''));
   fs.mkdirSync(dir, { recursive: true });
   await page.screenshot({ path: path.join(dir, `${name}.png`), fullPage: true, animations: 'disabled' });
 }
