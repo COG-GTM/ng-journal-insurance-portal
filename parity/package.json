@@ -1,0 +1,15 @@
+{
+  "name": "ng-journal-parity",
+  "private": true,
+  "scripts": {
+    "screens": "playwright test screens",
+    "flows": "playwright test --grep-invert screens",
+    "report": "node compose.mjs",
+    "all": "npm run screens && npm run flows; npm run report"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "pixelmatch": "5.3.0",
+    "pngjs": "7.0.0"
+  }
+}
