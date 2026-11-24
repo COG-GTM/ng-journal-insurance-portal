@@ -39,10 +39,44 @@
         "metadata": {
           "actualWorkers": 1
         },
+        "id": "baseline-screens",
+        "name": "baseline-screens",
+        "testDir": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "/screens\\.spec\\.ts/"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "upgraded-screens",
+        "name": "upgraded-screens",
+        "testDir": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "/screens\\.spec\\.ts/"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
         "id": "baseline",
         "name": "baseline",
         "testDir": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/specs",
-        "testIgnore": [],
+        "testIgnore": [
+          "/screens\\.spec\\.ts/"
+        ],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
@@ -58,7 +92,9 @@
         "id": "upgraded",
         "name": "upgraded",
         "testDir": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/specs",
-        "testIgnore": [],
+        "testIgnore": [
+          "/screens\\.spec\\.ts/"
+        ],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
@@ -73,6 +109,139 @@
     "webServer": null
   },
   "suites": [
+    {
+      "title": "screens.spec.ts",
+      "file": "screens.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "screens",
+          "file": "screens.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "capture every page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "upgraded-screens",
+                  "projectName": "upgraded-screens",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 12244,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T04:05:37.785Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "2676ef668c5398eed988-f5363265ad3151095913",
+              "file": "screens.spec.ts",
+              "line": 6,
+              "column": 7
+            },
+            {
+              "title": "capture every page",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "baseline-screens",
+                  "projectName": "baseline-screens",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 15050,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Claim Details', level: 1 })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Claim Details', level: 1 })\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Claim Details', level: 1 })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Claim Details', level: 1 })\u001b[22m\n\n    at open (/home/ubuntu/repos/ng-journal-insurance-portal/parity/specs/helpers.ts:19:72)\n    at /home/ubuntu/repos/ng-journal-insurance-portal/parity/specs/screens.spec.ts:28:7",
+                        "location": {
+                          "file": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/specs/helpers.ts",
+                          "column": 72,
+                          "line": 19
+                        },
+                        "snippet": "   at helpers.ts:19\n\n  17 | export async function open(page: Page, route: string, heading: string) {\n  18 |   await page.goto(route);\n> 19 |   await expect(page.getByRole('heading', { level: 1, name: heading })).toBeVisible();\n     |                                                                        ^\n  20 | }\n  21 |\n  22 | export async function shot(page: Page, testInfo: TestInfo, name: string) {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/specs/helpers.ts",
+                            "column": 72,
+                            "line": 19
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('heading', { name: 'Claim Details', level: 1 })\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('heading', { name: 'Claim Details', level: 1 })\u001b[22m\n\n\n   at helpers.ts:19\n\n  17 | export async function open(page: Page, route: string, heading: string) {\n  18 |   await page.goto(route);\n> 19 |   await expect(page.getByRole('heading', { level: 1, name: heading })).toBeVisible();\n     |                                                                        ^\n  20 | }\n  21 |\n  22 | export async function shot(page: Page, testInfo: TestInfo, name: string) {\n    at open (/home/ubuntu/repos/ng-journal-insurance-portal/parity/specs/helpers.ts:19:72)\n    at /home/ubuntu/repos/ng-journal-insurance-portal/parity/specs/screens.spec.ts:28:7"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-24T04:05:50.593Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/test-results/screens-screens-capture-every-page-baseline-screens/error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/test-results/screens-screens-capture-every-page-baseline-screens/trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/ubuntu/repos/ng-journal-insurance-portal/parity/specs/helpers.ts",
+                        "column": 72,
+                        "line": 19
+                      }
+                    },
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10449,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-11-24T04:06:06.280Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "2676ef668c5398eed988-4a71dfea4eccac3a1e8d",
+              "file": "screens.spec.ts",
+              "line": 6,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
     {
       "title": "claim.spec.ts",
       "file": "claim.spec.ts",
@@ -99,15 +268,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 500,
+                      "duration": 525,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:04.344Z",
+                      "startTime": "2026-11-24T04:06:17.504Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -133,15 +302,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 405,
+                      "duration": 569,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:04.907Z",
+                      "startTime": "2026-11-24T04:06:18.088Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -167,15 +336,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1869,
+                      "duration": 1904,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:05.321Z",
+                      "startTime": "2026-11-24T04:06:18.666Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -201,15 +370,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 567,
+                      "duration": 569,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:30.689Z",
+                      "startTime": "2026-11-24T04:06:33.900Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -235,15 +404,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 404,
+                      "duration": 370,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:31.326Z",
+                      "startTime": "2026-11-24T04:06:34.538Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -269,15 +438,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2894,
+                      "duration": 2973,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:31.750Z",
+                      "startTime": "2026-11-24T04:06:34.919Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -320,15 +489,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 534,
+                      "duration": 540,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:07.200Z",
+                      "startTime": "2026-11-24T04:06:20.580Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -354,15 +523,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 511,
+                      "duration": 426,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:07.742Z",
+                      "startTime": "2026-11-24T04:06:21.127Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -388,15 +557,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 1909,
+                      "duration": 1884,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:08.259Z",
+                      "startTime": "2026-11-24T04:06:21.562Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -422,15 +591,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 529,
+                      "duration": 413,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:34.654Z",
+                      "startTime": "2026-11-24T04:06:37.902Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -456,15 +625,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 428,
+                      "duration": 499,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:35.191Z",
+                      "startTime": "2026-11-24T04:06:38.320Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -490,15 +659,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2938,
+                      "duration": 2803,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:35.627Z",
+                      "startTime": "2026-11-24T04:06:38.825Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -541,15 +710,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 501,
+                      "duration": 458,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:10.178Z",
+                      "startTime": "2026-11-24T04:06:23.456Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -575,15 +744,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 704,
+                      "duration": 717,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:10.684Z",
+                      "startTime": "2026-11-24T04:06:23.922Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -609,15 +778,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 5003,
+                      "duration": 4959,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:11.395Z",
+                      "startTime": "2026-11-24T04:06:24.645Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -643,15 +812,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 522,
+                      "duration": 561,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:38.575Z",
+                      "startTime": "2026-11-24T04:06:41.647Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -677,15 +846,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 742,
+                      "duration": 726,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:39.106Z",
+                      "startTime": "2026-11-24T04:06:42.214Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -711,15 +880,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 2701,
+                      "duration": 5806,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:39.855Z",
+                      "startTime": "2026-11-24T04:06:42.946Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -762,15 +931,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 504,
+                      "duration": 554,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:16.415Z",
+                      "startTime": "2026-11-24T04:06:29.614Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -796,15 +965,15 @@
                   "projectName": "baseline",
                   "results": [
                     {
-                      "workerIndex": 0,
+                      "workerIndex": 3,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 378,
+                      "duration": 406,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:16.925Z",
+                      "startTime": "2026-11-24T04:06:30.176Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -830,15 +999,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 552,
+                      "duration": 532,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:42.566Z",
+                      "startTime": "2026-11-24T04:06:48.760Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -864,15 +1033,15 @@
                   "projectName": "upgraded",
                   "results": [
                     {
-                      "workerIndex": 1,
+                      "workerIndex": 4,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 380,
+                      "duration": 387,
                       "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2026-11-24T03:52:43.125Z",
+                      "startTime": "2026-11-24T04:06:49.298Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -883,91 +1052,6 @@
               "id": "a47e7b5d353475863a75-c8ac5620d482fbd99869",
               "file": "customer.spec.ts",
               "line": 15,
-              "column": 7
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "screens.spec.ts",
-      "file": "screens.spec.ts",
-      "column": 0,
-      "line": 0,
-      "specs": [],
-      "suites": [
-        {
-          "title": "screens",
-          "file": "screens.spec.ts",
-          "line": 5,
-          "column": 6,
-          "specs": [
-            {
-              "title": "capture every page",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "baseline",
-                  "projectName": "baseline",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 9977,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T03:52:17.310Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "2676ef668c5398eed988-6a76f838d81de61add42",
-              "file": "screens.spec.ts",
-              "line": 6,
-              "column": 7
-            },
-            {
-              "title": "capture every page",
-              "ok": true,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 60000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "upgraded",
-                  "projectName": "upgraded",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 11365,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-11-24T03:52:43.513Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
-                }
-              ],
-              "id": "2676ef668c5398eed988-5c762c9aa1b4504f9bf4",
-              "file": "screens.spec.ts",
-              "line": 6,
               "column": 7
             }
           ]
@@ -993,15 +1077,15 @@
               "projectName": "baseline",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 3,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 386,
+                  "duration": 394,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T03:52:27.295Z",
+                  "startTime": "2026-11-24T04:06:30.590Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1027,15 +1111,15 @@
               "projectName": "baseline",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 3,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1410,
+                  "duration": 1367,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T03:52:27.714Z",
+                  "startTime": "2026-11-24T04:06:30.990Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1061,15 +1145,15 @@
               "projectName": "baseline",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 3,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 717,
+                  "duration": 667,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T03:52:29.130Z",
+                  "startTime": "2026-11-24T04:06:32.364Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1095,15 +1179,15 @@
               "projectName": "baseline",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 3,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 344,
+                  "duration": 367,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T03:52:29.852Z",
+                  "startTime": "2026-11-24T04:06:33.038Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1129,15 +1213,15 @@
               "projectName": "upgraded",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 427,
+                  "duration": 351,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T03:52:54.886Z",
+                  "startTime": "2026-11-24T04:06:49.694Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1163,15 +1247,15 @@
               "projectName": "upgraded",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 1523,
+                  "duration": 1494,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T03:52:55.320Z",
+                  "startTime": "2026-11-24T04:06:50.051Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1197,15 +1281,15 @@
               "projectName": "upgraded",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 691,
+                  "duration": 650,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T03:52:56.851Z",
+                  "startTime": "2026-11-24T04:06:51.552Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1231,15 +1315,15 @@
               "projectName": "upgraded",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 4,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 330,
+                  "duration": 323,
                   "errors": [],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2026-11-24T03:52:57.549Z",
+                  "startTime": "2026-11-24T04:06:52.207Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -1257,11 +1341,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-11-24T03:52:03.859Z",
-    "duration": 54068.168999999994,
-    "expected": 32,
+    "startTime": "2026-11-24T04:05:37.045Z",
+    "duration": 75528.076,
+    "expected": 31,
     "skipped": 0,
     "unexpected": 0,
-    "flaky": 0
+    "flaky": 1
   }
 }

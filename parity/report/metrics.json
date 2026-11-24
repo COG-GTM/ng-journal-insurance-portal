@@ -1,5 +1,5 @@
 {
   "note": "Production build of insurance-portal, cold (rm -rf .angular/cache, --skip-nx-cache), Node 20.20.2, same VM.",
   "baseline": { "angular": "16.0.x", "builder": "@angular-devkit/build-angular:browser (webpack)", "buildSeconds": 17.3, "initialRaw": "1.38 MB", "initialTransfer": "219.08 kB", "distBytes": 1581410 },
-  "upgraded": { "angular": "21.2.x", "builder": "@angular/build:application (esbuild)", "buildSeconds": 7.3, "initialRaw": "1.53 MB", "initialTransfer": "260.82 kB", "distBytes": 1831488 }
+  "upgraded": { "angular": "21.2.x", "builder": "@angular/build:application (esbuild)", "buildSeconds": 7.3, "initialRaw": "1.53 MB", "initialTransfer": "261.18 kB", "distBytes": 1876962 }
 }

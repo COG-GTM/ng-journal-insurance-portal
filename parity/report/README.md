@@ -6,6 +6,7 @@ Baseline: 16 pass / 0 fail. Upgraded: 16 pass / 0 fail.
 
 | Page / flow | Baseline | Upgraded |
 | --- | --- | --- |
+| screens › capture every page | pass | pass |
 | claim › list shows every claim and opens details | pass | pass |
 | claim › details shows claim and contract fields | pass | pass |
 | claim › create validates and saves a claim | pass | pass |
@@ -17,7 +18,6 @@ Baseline: 16 pass / 0 fail. Upgraded: 16 pass / 0 fail.
 | contract › create validates, saves and edit updates status | pass | pass |
 | customer › list shows every customer and opens details | pass | pass |
 | customer › details shows person and address | pass | pass |
-| screens › capture every page | pass | pass |
 | root redirects to home and shows the shell | pass | pass |
 | home cards navigate to each list | pass | pass |
 | sidebar navigates and highlights the active route | pass | pass |
@@ -29,14 +29,14 @@ Baseline: 16 pass / 0 fail. Upgraded: 16 pass / 0 fail.
 | --- | --- | --- |
 | claim-create | 0.00% | [image](side-by-side/claim-create.png) |
 | claim-details | 0.00% | [image](side-by-side/claim-details.png) |
-| claim-list | 0.03% | [image](side-by-side/claim-list.png) |
+| claim-list | 0.00% | [image](side-by-side/claim-list.png) |
 | complaint-create | 0.00% | [image](side-by-side/complaint-create.png) |
 | complaint-details | 0.00% | [image](side-by-side/complaint-details.png) |
-| complaint-list | 0.03% | [image](side-by-side/complaint-list.png) |
+| complaint-list | 0.00% | [image](side-by-side/complaint-list.png) |
 | contract-create | 0.00% | [image](side-by-side/contract-create.png) |
 | contract-details | 0.06% | [image](side-by-side/contract-details.png) |
 | contract-edit | 0.00% | [image](side-by-side/contract-edit.png) |
-| contract-list | 0.06% | [image](side-by-side/contract-list.png) |
+| contract-list | 0.00% | [image](side-by-side/contract-list.png) |
 | customer-details | 0.00% | [image](side-by-side/customer-details.png) |
 | customer-list | 0.00% | [image](side-by-side/customer-list.png) |
 | home | 0.00% | [image](side-by-side/home.png) |
@@ -52,5 +52,5 @@ Production build of insurance-portal, cold (rm -rf .angular/cache, --skip-nx-cac
 | builder | @angular-devkit/build-angular:browser (webpack) | @angular/build:application (esbuild) |
 | buildSeconds | 17.3 | 7.3 |
 | initialRaw | 1.38 MB | 1.53 MB |
-| initialTransfer | 219.08 kB | 260.82 kB |
-| distBytes | 1581410 | 1831488 |
+| initialTransfer | 219.08 kB | 261.18 kB |
+| distBytes | 1581410 | 1876962 |
